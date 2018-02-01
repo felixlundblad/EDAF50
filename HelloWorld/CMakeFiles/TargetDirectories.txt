@@ -1,0 +1,3 @@
+/home/felix/Dokument/EDAF50/HelloWorld/CMakeFiles/edit_cache.dir
+/home/felix/Dokument/EDAF50/HelloWorld/CMakeFiles/rebuild_cache.dir
+/home/felix/Dokument/EDAF50/HelloWorld/CMakeFiles/HelloWorld.dir
