@@ -3,40 +3,99 @@
 #include <fstream>
 #include <iostream>
 #include <algorithm>
+#include <sstream>
 #include "word.h"
 #include "dictionary.h"
 
 using std::string;
 using std::vector;
-using std::unordered_set;
+using std::stringstream;
 
 using namespace std;
 
-Dictionary::Dictionary() {
-	Dictionary::loadWords(ifstream ("words.txt"));
+Dictionary::Dictionary()
+{
+	cout << "Entry Dictionary" << endl;
+	Dictionary::loadWords(ifstream("words.txt"));
+	cout << "Exit Dictionary" << endl;
 }
+void Dictionary::loadWords(ifstream inputFile)
+{
+	string line;
+	
+	if (inputFile.is_open()){
+		while(getline(inputFile, line)){
+			
+    		string buf; // Have a buffer string
+    		stringstream ss(line); // Insert the string into a stream
 
-void Dictionary::loadWords(ifstream inputFile){
-	string word;
-	string temp;
-	while(inputFile >> word){
-		vector<string> trigrams;
-		int amountOfTrigrams;
-		cin >> amountOfTrigrams;
-		for (int i = 0; i <= amountOfTrigrams; ++i){
-			cin >> temp;
-			trigrams.push_back(temp);
+    		vector<string> tokens; // Create vector to hold our words
+
+   			while (ss >> buf){
+        		tokens.push_back(buf);
+			}
+			auto it = tokens.begin();
+			vector<string> trigrams;
+			int length = stoi(tokens.at(1));
+			length+=2;
+			if (length > 2){
+				it++;
+				it++;
+				while(it != tokens.end()){
+					trigrams.push_back(*it);
+					it++;
+				}
+			}
+			Word w = Word(tokens.at(0), trigrams);
+			Word w2 = Word(tokens.at(0), trigrams);
+			words[length].push_back(w);
 		}
-		Dictionary::set.insert(Word (word, trigrams));
-	 	getline(inputFile, temp);
+	}else {
+		cout << "Unable to open file";
 	}
 }
 
-bool Dictionary::contains(const string& word) const {
-	return Dictionary::set.find(word) != Dictionary::set.end(); // Find returnerar en iterator
+void Dictionary::inefficientLoadWords(ifstream inputFile)
+{
+	string word;
+	string temp;
+	vector<string> trigrams;
+	int amountOfTrigrams;
+	while (inputFile >> word)
+	{
+		//cout << word << endl;
+		//if (word.length() > MAX_WORD_LENGTH)
+		//	break;
+		inputFile >> amountOfTrigrams;
+		for (int i = 0; i <= amountOfTrigrams; ++i)
+		{
+			inputFile >> temp;
+			trigrams.push_back(temp);
+		}
+		words[word.length()].push_back(Word(word, trigrams));
+		//Dictionary::set.insert(Word (word, trigrams));
+		getline(inputFile, temp);
+	}
 }
 
-vector<string> Dictionary::get_suggestions(const string& word) const {
+
+bool Dictionary::contains(const string &word) const
+{
+	cout << "Checking correctness" << endl;
+	auto it = words[word.length()].begin();
+	cout << it -> get_word() << endl;
+	while (it != words[word.length()].end())
+	{
+		if (it -> get_word() == word)
+			return true;
+		++it;
+	}
+	return false;
+	//return Dictionary::set.find(word) != Dictionary::set.end(); // Find returnerar en iterator
+}
+
+vector<string> Dictionary::get_suggestions(const string &word) const
+{
 	vector<string> suggestions;
 
 	return suggestions;

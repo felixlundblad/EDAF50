@@ -1,0 +1,1 @@
+dictionaryModifyer.o: dictionaryModifyer.cc
