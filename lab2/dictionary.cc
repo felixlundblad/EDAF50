@@ -15,7 +15,7 @@ using namespace std;
 
 Dictionary::Dictionary()
 {
-	cout << "Entry Dictionary" << endl;
+	cout << "Entry Dictionary: " <<  << endl;
 	Dictionary::loadWords(ifstream("words.txt"));
 	cout << "Exit Dictionary" << endl;
 }
@@ -46,8 +46,10 @@ void Dictionary::loadWords(ifstream inputFile)
 					it++;
 				}
 			}
+			string t = "test";
+			Word test = Word(t, vector<string> {"1","2"});
 			Word w = Word(tokens.at(0), trigrams);
-			Word w2 = Word(tokens.at(0), trigrams);
+			//Word w2 = Word(tokens.at(0), trigrams);
 			words[length].push_back(w);
 		}
 	}else {
@@ -59,13 +61,10 @@ void Dictionary::inefficientLoadWords(ifstream inputFile)
 {
 	string word;
 	string temp;
-	vector<string> trigrams;
 	int amountOfTrigrams;
 	while (inputFile >> word)
 	{
-		//cout << word << endl;
-		//if (word.length() > MAX_WORD_LENGTH)
-		//	break;
+		vector<string> trigrams;
 		inputFile >> amountOfTrigrams;
 		for (int i = 0; i <= amountOfTrigrams; ++i)
 		{
@@ -73,7 +72,6 @@ void Dictionary::inefficientLoadWords(ifstream inputFile)
 			trigrams.push_back(temp);
 		}
 		words[word.length()].push_back(Word(word, trigrams));
-		//Dictionary::set.insert(Word (word, trigrams));
 		getline(inputFile, temp);
 	}
 }
