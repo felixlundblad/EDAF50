@@ -8,7 +8,7 @@ using namespace std;
 class TagRemover{
 public:
     TagRemover(stringstream &ss);
-    void print(stringstream ss);
+    void print(const stringstream &ss);
 protected:
 private:
 };

@@ -23,16 +23,14 @@ LDFLAGS += -L.
 #LDFLAGS +=  -stdlib=libc++
 
 # Targets
-PROGS = date tag
+PROGS = date_test TagRemover_test PrimeNumbers
 
 all: $(PROGS)
 
-test: spell
-	./spell
-
 # Targets rely on implicit rules for compiling and linking
-date: date_test.o date.o
-tag: TagRemover_test.o TagRemover.o
+date_test: date_test.o date.o
+TagRemover_test: TagRemover_test.o TagRemover.o
+PrimeNumbers: PrimeNumbers.cc
 
 # Phony targets
 .PHONY: all test clean distclean
