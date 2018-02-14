@@ -23,7 +23,7 @@ LDFLAGS += -L.
 #LDFLAGS +=  -stdlib=libc++
 
 # Targets
-PROGS = date_test TagRemover_test PrimeNumbers
+PROGS = date_test TagRemover_test PrimeNumbers FunctionTemplate
 
 all: $(PROGS)
 
@@ -31,6 +31,7 @@ all: $(PROGS)
 date_test: date_test.o date.o
 TagRemover_test: TagRemover_test.o TagRemover.o
 PrimeNumbers: PrimeNumbers.cc
+FunctionTemplate: FunctionTemplate.cc
 
 # Phony targets
 .PHONY: all test clean distclean

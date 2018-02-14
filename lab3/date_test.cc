@@ -23,22 +23,14 @@ void print(const Date& d) {
 	cout << setw(2) << setfill('0') << d.getDay();
 }
 
-istream &operator>>(istream &input, Date &d){
-	int year, month, day;
-	char dash1, dash2;
-	input >> year >> dash1 >> month >> dash2 >> day;
-	if(year > 9999 || year < 0 || month > 12 || month < 1 || day > Date::daysPerMonth[month] || day < 1){
-		input.setstate(ios_base::failbit);
-	}
-	d = Date(year, month, day);
-	return input;
-}
-
-ostream &operator<<(ostream &output, const Date &d){
-	return output << d.getYear() << "-" << d.getMonth() << "-" << d.getDay();
-}
-
 int main() {
+	/*
+	cout << "Testing toString(), enter a date: " << endl;
+	Date toStringTest;
+	cin >> toStringTest;
+	cout << toStringTest.toString() << endl;
+	*/
+
 	// Check input and output of dates. Uncomment the following when you 
 	// have added operator>> and operator<<.
 	

@@ -1,6 +1,9 @@
 #include <ctime>  // time and localtime
 #include "date.h"
 
+#include <sstream>
+#include <iostream>
+
 int Date::daysPerMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
 Date::Date() {
@@ -27,6 +30,28 @@ int Date::getMonth() const {
 
 int Date::getDay() const {
 	return day;
+}
+
+std::istream &operator>>(std::istream &input, Date &d){
+	int year, month, day;
+	char dash1, dash2;
+	input >> year >> dash1 >> month >> dash2 >> day;
+	if(year > 9999 || year < 0 || month > 12 || month < 1 || day > Date::daysPerMonth[month] || day < 1){
+		input.setstate(std::ios_base::failbit);
+	}
+	//if(!input) input.setstate(std::ios_base::eofbit);
+	d = Date(year, month, day);
+	return input;
+}
+
+std::ostream &operator<<(std::ostream &output, const Date &d){
+	return output << d.getYear() << "-" << d.getMonth() << "-" << d.getDay();
+}
+
+std::string Date::toString(){
+	std::stringstream temp;
+	temp << year << "-" << month << "-" << day;
+	return temp.str();
 }
 
 void Date::next() {
