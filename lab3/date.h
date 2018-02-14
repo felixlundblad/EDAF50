@@ -1,6 +1,8 @@
 #ifndef DATE_H
 #define DATE_H
 
+#include <istream>
+
 class Date {
 public:
 	Date();                    // today's date
@@ -9,11 +11,11 @@ public:
 	int getMonth() const;      // get the month
 	int getDay() const;        // get the day
 	void next();               // advance to next day
+	static int daysPerMonth[12]; // number of days in each month
 private:
 	int year;  // the year (four digits)
 	int month; // the month (1-12)
 	int day;   // the day (1-..)
-	static int daysPerMonth[12]; // number of days in each month
 };
 
 #endif
