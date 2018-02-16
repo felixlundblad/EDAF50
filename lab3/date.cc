@@ -33,11 +33,12 @@ int Date::getDay() const {
 }
 
 std::istream &operator>>(std::istream &input, Date &d){
-	int year, month, day;
-	char dash1, dash2;
+	int year = -1, month = -1, day = -1;
+	char dash1 = ' ', dash2 = ' ';
 	input >> year >> dash1 >> month >> dash2 >> day;
-	if(year > 9999 || year < 0 || month > 12 || month < 1 || day > Date::daysPerMonth[month] || day < 1){
+	if(dash1 != '-' || dash2 != '-' || year > 9999 || year < 0 || month > 12 || month < 1 || day > Date::daysPerMonth[month] || day < 1){
 		input.setstate(std::ios_base::failbit);
+		return input;
 	}
 	//if(!input) input.setstate(std::ios_base::eofbit);
 	d = Date(year, month, day);

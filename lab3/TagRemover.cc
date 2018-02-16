@@ -8,15 +8,21 @@ TagRemover::TagRemover(std::stringstream &ss)
 {
     string buffer;
     buffer = ss.str();
-    for (int i = 0; i < buffer.size(); i++)
+    for (uint i = 0; i < buffer.size(); i++)
     {
         if (buffer.at(i) == '<')
         {
+            bool newLine = false;
             int tagLength(2);
             while(buffer.at(i + tagLength - 1) != '>'){
                 ++tagLength;
+                if(buffer.at(i + tagLength - 1) == '\n'){
+                    newLine = true;
+                }
             }
             buffer.erase(i, tagLength);
+            if(buffer.at(i) == ' ') buffer.erase(i, 1);
+            if(newLine) buffer.insert(i, 1, '\n');
         }
         
         if(buffer.at(i) == '&'){
@@ -28,6 +34,7 @@ TagRemover::TagRemover(std::stringstream &ss)
                 temp.push_back(buffer.at(i+j));
                 ++j;
             }
+
             if(temp == "&lt;"){
                 buffer.erase(i, 4);
                 buffer.insert(i, "<");

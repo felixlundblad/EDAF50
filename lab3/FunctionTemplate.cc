@@ -1,8 +1,8 @@
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
-#include "FunctionTemplate.h"
 #include "date.h"
+#include "FunctionTemplate.h"
 
 using namespace std;
 

@@ -31,7 +31,7 @@ all: $(PROGS)
 date_test: date_test.o date.o
 TagRemover_test: TagRemover_test.o TagRemover.o
 PrimeNumbers: PrimeNumbers.cc
-FunctionTemplate: FunctionTemplate.cc
+FunctionTemplate: FunctionTemplate.cc date.o
 
 # Phony targets
 .PHONY: all test clean distclean
