@@ -2,7 +2,7 @@
  * nstest.cc: a program to test the name server implementations.
  */
 #include "nameserverinterface.h"
-#include "vns.h"
+#include "VNS.h"
 #include "mns.h"
 #include "umns.h"
 #include "hns.h"
@@ -13,7 +13,7 @@
 using namespace std;
 
 void test(NameServerInterface& ns) {
-#if 0
+#if true
 	ns.insert("www.Bosse.se", 1);
 	ns.insert("www.Ek.se", 2);
 	assert(ns.lookup("www.Bosse.se") == 1);
@@ -57,4 +57,5 @@ int main() {
 	HNS hns(4711);
 	test(hns);
 	cout << "Hash passed ..." << endl;
+	
 }
