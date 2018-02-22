@@ -7,6 +7,7 @@
 #define BITSET_ITERATOR_H
 
 #include "bitreference.h"
+#include "bitset.h"
 #include <iterator>
 
 class BitsetIterator : public std::iterator<std::forward_iterator_tag, bool> {
@@ -14,10 +15,11 @@ public:
 	BitsetIterator(Bitset::BitStorage* pb, std::size_t p) : ref(pb, p) {}
 	
 	bool operator!=(const BitsetIterator& bsi) const {
-		return true;
+		return !(*ref.p_bits == *bsi.ref.p_bits && ref.pos == bsi.ref.pos);
 	}
 	
 	BitsetIterator& operator++() {
+		++ref.pos;
 		return *this;
 	}
 	

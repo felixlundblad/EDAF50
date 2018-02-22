@@ -11,37 +11,40 @@ DEPFLAGS = -MT $@ -MMD -MP -MF $*.d
 # if you use clang++ and wish to use libc++ instead of GNU's libstdc++.
 # -g is for debugging.
 CPPFLAGS =  -std=c++11 -I.
-CXXFLAGS =  -O2 -Wall -Wextra -pedantic-errors -Wold-style-cast 
-CXXFLAGS += -std=c++11 
+CXXFLAGS =   -Wall -Wextra -pedantic-errors -Wold-style-cast
+CXXFLAGS += -std=c++11
 CXXFLAGS += -g
 CXXFLAGS += $(DEPFLAGS)
-LDFLAGS =   -g 
+LDFLAGS =   -g
+# LDLIBS = -llab1
+LDFLAGS += -L.
 #CPPFLAGS += -stdlib=libc++
 #CXXFLAGS += -stdlib=libc++
 #LDFLAGS +=  -stdlib=libc++
 
 # Targets
-PROGS =  ltest test_coding print_argv HelloWorld encode decode
+PROGS = simplebitsettest bitsettest1 bitsettest2
 
 all: $(PROGS)
 
-test: test_coding
-	./test_coding
+simpletest: simplebitsettest
+			./simplebitsettest
 
 # Targets rely on implicit rules for compiling and linking
-ltest: ltest.o list.o
-test_coding: test_coding.o coding.o 
-print_argv: print_argv.o
-HelloWorld: HelloWorld.cc
-encode: encode.cc
-decode: decode.cc
+simplebitset: simplebitset.o
+simplebitsettest: simplebitsettest.cc simplebitset.o
+bitreference: bitreference.o bitset.o
+bitset: bitset.o
+bitsetiterator: bitsetiterator.h
+bitsettest1: bitset.o bitreference.o
+bitsettest2: bitset.o bitreference.o bitsetiterator.h
 
 # Phony targets
-.PHONY: all test clean distclean link
+.PHONY: all clean distclean simpletest
 
 # Standard clean
 clean:
-	rm -f *.o $(PROGS)
+	rm -f *.o $(PROGS) *.enc *.dec
 
 distclean: clean
 	rm *.d
